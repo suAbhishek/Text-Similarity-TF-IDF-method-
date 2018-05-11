@@ -63,7 +63,6 @@ def tfidf_calc(tf_dict,idf_dict,doc,word_set):
     for word,val in tfidf_dict_new.items():
         if tfidf_dict_new[word] == None:
             tfidf_dict_new[word] = float(0)
-  #  print(tfidf_dict_new)
     return tfidf_dict_new
 
 
@@ -77,17 +76,11 @@ def get_similarity(doc1,doc2):
     doc1,doc2 = preprocessing_doc(doc1),preprocessing_doc(doc2)
     word_set = create_word_set(doc1,doc2)
     tf_doc1, tf_doc2 = tf_calculation(doc1,word_set), tf_calculation(doc2,word_set)
-#    print(tf_doc2)
     idf_dict_of_docs = idf_calculation(doc1,doc2,word_set)
- #   print(idf_dict_of_docs)
     textA_tfidf = tfidf_calc(tf_doc1,idf_dict_of_docs,doc1,word_set)
     textB_tfidf = tfidf_calc(tf_doc2,idf_dict_of_docs,doc2,word_set)
-    #computing cosine values for checking similary
-  #  print(textA_tfidf,textB_tfidf)
     vec1 = (list(textA_tfidf.values()))
     vec2 = list(textB_tfidf.values())
-  #  print("--------------\n ------------------")
-    #print(vec1,vec2)
     return (1-nltk.cluster.cosine_distance(vec1,vec2))*100
 
 
